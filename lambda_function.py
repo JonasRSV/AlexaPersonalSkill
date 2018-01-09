@@ -34,10 +34,9 @@ class INTENT_HANDLERS(object):
                                                Thinglets.Songs.RUSSKI)],
                                            should_session_end))
 
-                
-                                        
+
 def crash_handler():
-    """Handles crashes"""
+    """Handle crashes."""
     should_session_end = True
     return Response.build_response({},
                                    Response.build_responselet(
@@ -45,18 +44,17 @@ def crash_handler():
                                        Response.WIERD_SHIT.EMPTY_REPROMPT,
                                        [],
                                        should_session_end))
-                                       
+
 
 def unknown_request_handler():
-    """Handles unknown requests."""
+    """Handle unknown requests."""
     should_session_end = True
-    return Response.build_response({}, 
+    return Response.build_response({},
                                    Response.build_responselet(
                                        Thinglets.Farewell.getRandom(),
                                        Response.WIERD_SHIT.EMPTY_REPROMPT,
                                        [],
                                        should_session_end))
-
 
 
 def intent_handler(event):
@@ -65,7 +63,7 @@ def intent_handler(event):
 
     if intent is INTENT_HANDLERS.STOP:
         return INTENT_HANDLERS.stop_handler()
-    else
+    else:
         return INTENT_HANDLERS.unknown_handler()
 
 
@@ -75,7 +73,7 @@ def session_initializer():
     return Response.build_response({},
                                    Response.build_responselet(
                                        Thinglets.Greeting.getRandom(),
-                                       Response.WIERD_SHIT.reprompt,
+                                       Response.WIERD_SHIT.EMPTY_REPROMPT,
                                        [],
                                        should_session_end))
 
@@ -87,9 +85,9 @@ def lambda_handler(event, context):
     try:
         request_type = event["request"]["type"]
 
-        if request_type is REQUEST_TYPE.START_INTERACTION:
+        if request_type == REQUEST_TYPE.START_INTERACTION:
             return session_initializer()
-        else if request_type is REQUEST_TYPE.INTENT:
+        elif request_type == REQUEST_TYPE.INTENT:
             return intent_handler(event)
         else:
             return unknown_request_handler()

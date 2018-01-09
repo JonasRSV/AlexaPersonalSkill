@@ -1,7 +1,8 @@
 
 class WIERD_SHIT(object):
     """Keep stuff i don't understand but i think has to be there here."""
-    EMPTY_REPROMPT = { "outputSpeech": { "type": "PlainText", "text": "null" }
+
+    EMPTY_REPROMPT = {"outputSpeech": {"type": "PlainText", "text": "null"}}
 
 
 
@@ -43,6 +44,6 @@ def build_response(sessionAttributes, response):
     return {
         "version": "1.0",
         "sessionAttributes": sessionAttributes,
-        response: response
+        "response": response
     }
 
